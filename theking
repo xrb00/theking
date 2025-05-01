@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The King - Painel</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #000000, #0f0);
+      color: white;
+    }
+
+    .centered {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #00ff00;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .card img {
+      width: 120px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 10px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #111;
+      color: white;
+    }
+
+    .button {
+      background-color: #00ff00;
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .hidden { display: none; }
+
+    .switch {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .switch input {
+      margin-right: 10px;
+    }
+
+    select, input[type=range] {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .tab-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .tab-buttons button {
+      flex: 1;
+      margin: 0 5px;
+      background-color: #111;
+      color: white;
+      border: 2px solid #00ff00;
+      cursor: pointer;
+    }
+
+    .fov-label {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .info-box {
+      background-color: #111;
+      border: 1px solid #0f0;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .mensagem {
+      background-color: #0f0;
+      color: black;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 15px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login -->
+<div id="login" class="centered">
+  <div class="card">
+    <img src="https://cdn.discordapp.com/attachments/1361113882642350205/1367343084785897535/82c9e4f2-9e1c-41c2-82fc-76818513cf2f.jpg?ex=68143cfb&is=6812eb7b&hm=386f05606c9f6245a544cda05bc362e4949d48b7907cc762b84fb436ebbb08ae" alt="The King Logo"/>
+    <h2>Login</h2>
+    <input type="text" id="keyInput" class="input" placeholder="Digite sua Key"/>
+    <button class="button" onclick="verificarKey()">Entrar</button>
+    <a href="https://discord.com" target="_blank">
+      <button class="button">Discord Oficial</button>
+    </a>
+  </div>
+</div>
+
+<!-- Painel -->
+<div id="painel" class="hidden centered">
+  <div class="card">
+    <h2>AUXÍLIO BY THE KING</h2>
+    <div class="tab-buttons">
+      <button>Aimbot</button>
+      <button onclick="toggleInfo()">Info</button>
+    </div>
+
+    <div class="switch">
+      <input type="checkbox" id="aux">
+      <label for="aux">Ativar Auxílio</label>
+    </div>
+
+    <div class="switch">
+      <input type="checkbox" id="fovToggle">
+      <label for="fovToggle">Ativar Fov</label>
+    </div>
+
+    <div class="fov-label">
+      <label>Fov</label>
+      <label id="fovValue">0</label>
+    </div>
+    <input type="range" min="0" max="100" value="0" id="fovRange" oninput="document.getElementById('fovValue').textContent = this.value">
+
+    <select class="input">
+      <option>Auxílio Head</option>
+      <option>Auxílio Corpo</option>
+    </select>
+
+    <p>Tipo de Aimbot:</p>
+    <div class="switch">
+      <input type="radio" name="aimbot" id="atirar">
+      <label for="atirar">Ao Atirar</label>
+    </div>
+    <div class="switch">
+      <input type="radio" name="aimbot" id="olhar">
+      <label for="olhar">Ao Olhar</label>
+    </div>
+
+    <button class="button" onclick="ativarFuncoes()">INJETAR FUNÇÕES NO JOGO</button>
+
+    <!-- Mensagem de confirmação -->
+    <div id="mensagemAtivada" class="mensagem">Opção ativada</div>
+
+    <!-- Info Box -->
+    <div id="infoBox" class="info-box">
+      <p><strong>Instagram:</strong> @thekingxits</p>
+      <p><strong>Desenvolvedor:</strong> @flyb001</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function verificarKey() {
+    const key = document.getElementById("keyInput").value;
+    if (key === "thekingxits") {
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("painel").classList.remove("hidden");
+    } else {
+      alert("Key inválida!");
+    }
+  }
+
+  function toggleInfo() {
+    const box = document.getElementById("infoBox");
+    box.style.display = box.style.display === "block" ? "none" : "block";
+  }
+
+  function ativarFuncoes() {
+    const msg = document.getElementById("mensagemAtivada");
+    msg.style.display = "block";
+    setTimeout(() => {
+      msg.style.display = "none";
+    }, 2000);
+  }
+</script>
+
+</body>
+</html>
